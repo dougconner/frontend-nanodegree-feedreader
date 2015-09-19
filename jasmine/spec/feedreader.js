@@ -31,6 +31,17 @@ $(function() {
          * in the allFeeds object and ensures it has a URL defined
          * and that the URL is not empty.
          */
+        function testUrls(index) {
+            it('URl ' + index + ' defined and not empty', function() {
+                expect(allFeeds[index].url).toBeDefined();
+                expect(allFeeds[index].url.length).toBeGreaterThan(0);
+            });
+        }
+
+        for(var i = 0; i < 4; i++) {
+            testUrls(i);
+        }
+
 
 
         /* TODO: Write a test that loops through each feed
