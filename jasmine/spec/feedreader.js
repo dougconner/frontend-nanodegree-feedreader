@@ -14,7 +14,6 @@ $(function() {
 	* feeds definitions, the allFeeds variable in our application.
 	*/
 	describe('RSS Feeds', function() {
-
 		var len = allFeeds.length;
 
 		/* This is our first test - it tests to make sure that the
@@ -24,16 +23,17 @@ $(function() {
 		 * allFeeds in app.js to be an empty array and refresh the
 		 * page?
 		 */
+
 		it('are defined', function() {
 			expect(allFeeds).toBeDefined();
 			expect(allFeeds.length).not.toBe(0);
 		});
 
-
 		/* TODO: Write a test that loops through each feed
 		 * in the allFeeds object and ensures it has a URL defined
 		 * and that the URL is not empty.
 		 */
+
 		function testFeedUrls(index) {
 			it('Feed[' + index + '].url defined and not empty', function() {
 				expect(allFeeds[index].url).toBeDefined();
@@ -45,11 +45,11 @@ $(function() {
 			testFeedUrls(i);
 		}
 
-
 		/* TODO: Write a test that loops through each feed
 		 * in the allFeeds object and ensures it has a name defined
 		 * and that the name is not empty.
 		 */
+
 		function testFeedNames(index) {
 			it('Feed[' + index + '].name defined and not empty', function() {
 				expect(allFeeds[index].name).toBeDefined();
@@ -64,7 +64,6 @@ $(function() {
 
 
 	/* TODO: Write a new test suite named "The menu" */
-
 	describe('The menu', function() {
 		var menuIcon = $('.menu-icon-link');
 		var body = $('body');
@@ -93,33 +92,40 @@ $(function() {
 			menuIcon.click();
 			expect(body.hasClass('menu-hidden')).toBe(true);
 		});
-
 	});
 
 	/* TODO: Write a new test suite named "Initial Entries" */
-
 	describe('Initial Entries', function() {
-		beforeEach(function(cb) {
-			loadFeed(0, cb);
+
+		// console.log('length of entry = ', $('.entry').length);
+
+		/* Initialize the feed in beforeEach to the first feed.
+		 * Test the length of entry when it is done.
+		 */
+
+		beforeEach(function(done) {
+			loadFeed(0, function() {
+				done();
+			});
 		});
 
 		/* TODO: Write a test that ensures when the loadFeed
 		 * function is called and completes its work, there is at least
 		 * a single .entry element within the .feed container.
 		 * Remember, loadFeed() is asynchronous so this test will require
-		 * the use of Jasmine's beforeEach and asynchronous done() function.
+		 * the use of Jasmine's beforeEach and done() function.
 		 */
 
 		it('at least one entry in .feed container', function() {
+			// console.log('length of entry = ', $('.entry').length);
 			expect($('.entry').length).toBeGreaterThan(0);
 		});
-
 
 	});
 
 	/* TODO: Write a new test suite named "New Feed Selection" */
-
 	describe('New Feed Selection', function() {
+
 		var initialTitle;
 		var nextTitle;
 		var index;
