@@ -39,7 +39,7 @@ $(function() {
         }
 
         var len = allFeeds.length;
-        for(var i = 0; i < allFeeds.length; i++) {
+        for(var i = 0; i < len; i++) {
             testFeedUrls(i);
         }
 
@@ -99,8 +99,8 @@ $(function() {
     /* TODO: Write a new test suite named "Initial Entries" */
 
     describe('Initial Entries', function() {
-        beforeEach(function(done) {
-            loadFeed(0, done);
+        beforeEach(function(cb) {
+            loadFeed(0, cb);
         });
 
         /* TODO: Write a test that ensures when the loadFeed
@@ -110,18 +110,49 @@ $(function() {
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
 
-         // LoadFeed function called and completes its work
-         // There is at least one .entry element within the .feed container
          it('at least one entry in .feed container', function() {
             expect($('.entry').length).toBeGreaterThan(0);
          });
 
+
     });
 
-    /* TODO: Write a new test suite named "New Feed Selection"
+    /* TODO: Write a new test suite named "New Feed Selection" */
+
+    describe('New Feed Selection', function() {
+        var initialTitle;
+        var nextTitle;
+        var index;
+
+        beforeEach(function(done) {
+            loadFeed(0, function() {
+                initialTitle = $('.header-title').html();
+                console.log("initialTitle  = ", initialTitle);
+                done();
+            });
+            done();
+        });
 
         /* TODO: Write a test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
+
+        function feedSelectTest(index) {
+             it('content (feed ' + index + ') has changed from feed 0',function(done) {
+                loadFeed(index, function() {
+                    nextTitle = $('.header-title').html();
+                    console.log('index  = ' + index + ' > ', $('.header-title').html());
+                    expect(nextTitle).not.toBe(initialTitle)
+                    done();
+                });
+            });
+        }
+
+        var len = allFeeds.length;
+        for (var i = 1; i < len; i++) {
+            feedSelectTest(i);
+         }
+
+    });
 }());
