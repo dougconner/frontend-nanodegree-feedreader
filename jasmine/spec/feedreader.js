@@ -14,6 +14,9 @@ $(function() {
     * feeds definitions, the allFeeds variable in our application.
     */
     describe('RSS Feeds', function() {
+
+        var len = allFeeds.length;
+
         /* This is our first test - it tests to make sure that the
          * allFeeds variable has been defined and that it is not
          * empty. Experiment with this before you get started on
@@ -38,7 +41,6 @@ $(function() {
             });
         }
 
-        var len = allFeeds.length;
         for(var i = 0; i < len; i++) {
             testFeedUrls(i);
         }
@@ -55,7 +57,6 @@ $(function() {
             });
         }
 
-        var len = allFeeds.length;
         for(var i = 0; i < allFeeds.length; i++) {
             testFeedNames(i);
         }
@@ -127,10 +128,9 @@ $(function() {
         beforeEach(function(done) {
             loadFeed(0, function() {
                 initialTitle = $('.header-title').html();
-                console.log("initialTitle  = ", initialTitle);
+                // console.log('initialTitle (index  = 0) = ', initialTitle);
                 done();
             });
-            done();
         });
 
         /* TODO: Write a test that ensures when a new feed is loaded
@@ -142,8 +142,8 @@ $(function() {
              it('content (feed ' + index + ') has changed from feed 0',function(done) {
                 loadFeed(index, function() {
                     nextTitle = $('.header-title').html();
-                    console.log('index  = ' + index + ' > ', $('.header-title').html());
-                    expect(nextTitle).not.toBe(initialTitle)
+                    // console.log('nextTitle (index  = ' + index + ') = ', nextTitle);
+                    expect(nextTitle).not.toBe(initialTitle);
                     done();
                 });
             });
